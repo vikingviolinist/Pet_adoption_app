@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
 import ThemeContext from "./ThemeContext";
-import { Animal, PetAPIResponse, Pet } from "./APIResponsesTypes";
+import { Animal, PetAPIResponse } from "./APIResponsesTypes";
 
 const Modal = lazy(() => import("./Modal"));
 
@@ -21,6 +21,8 @@ class Details extends Component<{ params: { id?: string } }> {
   };
 
   async componentDidMount() {
+    if (!this.props.params.id) return;
+
     const res = await fetch(
       `http://pets-v2.dev-apis.com/pets?id=${this.props.params.id}`
     );

@@ -12,9 +12,16 @@
   "rules": {
     "react/prop-types": 0,
     "react/react-in-jsx-scope": 0,
-    "@typescript-eslint/no-empty-function": 0
+    "@typescript-eslint/no-empty-function": 0,
+    "unused-imports/no-unused-imports": "error"
   },
-  "plugins": ["react", "import", "jsx-a11y", "@typescript-eslint"],
+  "plugins": [
+    "react",
+    "import",
+    "jsx-a11y",
+    "@typescript-eslint",
+    "unused-imports"
+  ],
   "parserOptions": {
     "ecmaVersion": 2022,
     "project": ["./tsconfig.json"],
