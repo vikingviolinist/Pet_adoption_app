@@ -1,18 +1,24 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import Results from "./Results";
 import useBreedList from "./useBreedList";
-import ThemeContext from "./ThemeContext";
-import { Animal, Pet, PetAPIResponse } from "./APIResponsesTypes";
+import { Animal, Pet, PetAPIResponse, Theme } from "./APIResponsesTypes";
+import { useSelector, useDispatch } from "react-redux";
+import changeAnimal from "./actionCreators/changeAnimal";
+import changeBreed from "./actionCreators/changeBreed";
+import changeLocation from "./actionCreators/changeLocation";
+import changeTheme from "./actionCreators/changeTheme";
+import { RootState } from "./store";
 
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
 const SearchParams = () => {
-  const [location, updateLocation] = useState("");
-  const [animal, updateAnimal] = useState("" as Animal);
-  const [breed, updateBreed] = useState("");
+  const animal = useSelector((state: RootState) => state.animal);
+  const location = useSelector(({ location }) => location);
+  const breed = useSelector(({ breed }) => breed);
+  const theme = useSelector(({ theme }) => theme);
   const [pets, setPets] = useState([] as Pet[]);
   const [breeds] = useBreedList(animal);
-  const [theme, setTheme] = useContext(ThemeContext);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     void requestPets();
@@ -42,9 +48,9 @@ const SearchParams = () => {
             className="w-60 mb-5 block"
             type="text"
             id="location"
-            value={location}
+            value={location as string}
             placeholder="Location"
-            onChange={(e) => updateLocation(e.target.value)}
+            onChange={(e) => dispatch(changeLocation(e.target.value))}
           />
         </label>
         <label htmlFor="animal">
@@ -54,12 +60,10 @@ const SearchParams = () => {
             id="animal"
             value={animal}
             onChange={(e) => {
-              updateAnimal(e.target.value as Animal);
-              updateBreed("");
+              dispatch(changeAnimal(e.target.value as Animal));
             }}
             onBlur={(e) => {
-              updateAnimal(e.target.value as Animal);
-              updateBreed("");
+              dispatch(changeAnimal(e.target.value as Animal));
             }}
           >
             <option />
@@ -76,9 +80,9 @@ const SearchParams = () => {
             className="w-60 mb-5 block disabled:opacity-50"
             disabled={!breeds.length}
             id="breed"
-            value={breed}
-            onChange={(e) => updateBreed(e.target.value)}
-            onBlur={(e) => updateBreed(e.target.value)}
+            value={breed as string}
+            onChange={(e) => dispatch(changeBreed(e.target.value))}
+            onBlur={(e) => dispatch(changeBreed(e.target.value))}
           >
             <option />
             {breeds.map((breed) => (
@@ -92,9 +96,9 @@ const SearchParams = () => {
           Theme
           <select
             className="w-60 mb-5 block"
-            value={theme}
-            onChange={(e) => setTheme(e.target.value)}
-            onBlur={(e) => setTheme(e.target.value)}
+            value={theme as Theme}
+            onChange={(e) => dispatch(changeTheme(e.target.value as Theme))}
+            onBlur={(e) => dispatch(changeTheme(e.target.value as Theme))}
           >
             <option value="peru">Peru</option>
             <option value="darkblue">Dark Blue</option>
@@ -104,7 +108,7 @@ const SearchParams = () => {
         </label>
         <button
           className="rounded px-6 py-2 text-white hover:opacity-50 border-none"
-          style={{ backgroundColor: theme }}
+          style={{ backgroundColor: theme as Theme }}
         >
           Submit
         </button>

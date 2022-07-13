@@ -1,14 +1,14 @@
-import { StrictMode, useState } from "react";
+import { StrictMode } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import ThemeContext from "./ThemeContext";
 import Details from "./Details";
 import SearchParams from "./SearchParams";
+import { Provider } from "react-redux";
+import store from "./store";
 
 const App = () => {
-  const theme = useState("darkblue");
   return (
     <StrictMode>
-      <ThemeContext.Provider value={theme}>
+      <Provider store={store}>
         <div
           className="p-0 m-0"
           style={{
@@ -26,7 +26,7 @@ const App = () => {
             <Route path="/" element={<SearchParams />} />
           </Routes>
         </div>
-      </ThemeContext.Provider>
+      </Provider>
     </StrictMode>
   );
 };
