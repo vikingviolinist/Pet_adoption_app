@@ -23,3 +23,5 @@ export interface BreedListAPIResponse {
   animal: Animal;
   breeds: string[];
 }
+
+export type Theme = "darkblue" | "chartreuse" | "mediumorchid" | "peru";
