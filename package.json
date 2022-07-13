@@ -8,7 +8,9 @@
     "build": "parcel build",
     "start": "npm -s run build && node dist/backend/index.js",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
-    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --quiet"
+    "format:check": "prettier --check \"src/**/*.{js,jsx}\"",
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --quiet",
+    "typecheck": "tsc --noEmit"
   },
   "author": "Brian Holt <btholt+citr-v7-project@gmail.com>",
   "license": "Apache-2.0",
