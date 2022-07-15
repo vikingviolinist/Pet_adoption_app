@@ -34,9 +34,9 @@ const SearchParams = () => {
   }
 
   return (
-    <div className="my-0 mx-auto w-11/12">
+    <div className="my-0 mx-auto w-11/12 flex items-start flex-col sm:flex-row gap-5">
       <form
-        className="p-10 mb-10 rounded-lg bg-gray-200 shadow-lg flex flex-col justify-center items-center"
+        className="p-10 rounded-lg bg-red-100 shadow-lg flex flex-col justify-center items-center gap-5 w-full sm:w-2/5"
         onSubmit={(e) => {
           e.preventDefault();
           void requestPets();
@@ -45,7 +45,7 @@ const SearchParams = () => {
         <label htmlFor="location">
           Location
           <input
-            className="w-60 mb-5 block"
+            className="w-60 block rounded"
             type="text"
             id="location"
             value={location as string}
@@ -56,7 +56,7 @@ const SearchParams = () => {
         <label htmlFor="animal">
           Animal
           <select
-            className="w-60 mb-5 block"
+            className="w-60 block rounded cursor-pointer"
             id="animal"
             value={animal}
             onChange={(e) => {
@@ -77,7 +77,7 @@ const SearchParams = () => {
         <label htmlFor="breed">
           Breed
           <select
-            className="w-60 mb-5 block disabled:opacity-50"
+            className="w-60 block rounded cursor-pointer disabled:opacity-50 disabled:cursor-default"
             disabled={!breeds.length}
             id="breed"
             value={breed as string}
@@ -95,7 +95,7 @@ const SearchParams = () => {
         <label htmlFor="theme">
           Theme
           <select
-            className="w-60 mb-5 block"
+            className="w-60 block rounded cursor-pointer"
             value={theme as Theme}
             onChange={(e) => dispatch(changeTheme(e.target.value as Theme))}
             onBlur={(e) => dispatch(changeTheme(e.target.value as Theme))}
